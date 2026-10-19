@@ -23,6 +23,26 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
         raise RuntimeError("redirect refused")
 
 
+def http_headers(req, data=None, timeout=120):
+    """Raw request returning (status, headers) — for empty-body responses."""
+    try:
+        with urllib.request.build_opener(NoRedirect()).open(req, data=data, timeout=timeout) as r:
+            return r.status, dict(r.headers)
+    except urllib.error.HTTPError as e:
+        try:
+            err = json.loads(e.read().decode())
+        except Exception:
+            err = {}
+        detail = err.get("error")
+        if isinstance(detail, dict):
+            msg = detail.get("message", f"http_{e.code}")
+        elif isinstance(detail, str):
+            msg = f"{detail}: {err.get('error_description', '')}"
+        else:
+            msg = f"http_{e.code}"
+        raise RuntimeError(f"request failed ({e.code}): {msg}")
+
+
 def http_json(req, data=None, timeout=120):
     try:
         with urllib.request.build_opener(NoRedirect()).open(req, data=data, timeout=timeout) as r:
@@ -108,7 +128,9 @@ def main():
         req.add_header("Content-Type", "application/json; charset=UTF-8")
         req.add_header("X-Upload-Content-Type", "video/mp4")
         req.add_header("X-Upload-Content-Length", str(size))
-        _, headers, _ = http_json(req, data=json.dumps(meta).encode())
+        # NB: session initiation returns 200 with an EMPTY body;
+        # the session URL comes in the Location header — do not JSON-parse it.
+        _, headers = http_headers(req, data=json.dumps(meta).encode())
         session_url = headers.get("Location")
         if not session_url:
             raise RuntimeError("no resumable session URL")
