@@ -8,11 +8,13 @@ on:
   workflow_dispatch:
     inputs:
       video_url:
-        description: 'Direct URL of the mp4 (a 48h link is fine)'
-        required: true
+        description: 'Direct URL of the mp4 (a 48h link is fine) — leave empty for thumbnail-only mode'
+        required: false
+        default: ''
       title:
         description: 'Video title'
-        required: true
+        required: false
+        default: ''
       description:
         description: 'Video description'
         required: false
@@ -23,6 +25,14 @@ on:
         default: 'public'
         type: choice
         options: [public, unlisted, private]
+      thumbnail_url:
+        description: 'Direct URL of the thumbnail image (png/jpg) — set on the uploaded or existing video'
+        required: false
+        default: ''
+      video_id:
+        description: 'Existing video ID: when set, skips the upload and only sets the thumbnail'
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -47,6 +57,8 @@ jobs:
           set -o pipefail
           python3 .github/scripts/yt_upload.py \
             --video-url "${{ inputs.video_url }}" \
+            --video-id "${{ inputs.video_id }}" \
+            --thumbnail-url "${{ inputs.thumbnail_url }}" \
             --title "${{ inputs.title }}" \
             --description "${{ inputs.description }}" \
             --privacy "${{ inputs.privacy }}" | tee /tmp/out.txt
