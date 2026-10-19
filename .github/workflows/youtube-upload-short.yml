@@ -1,0 +1,60 @@
+name: Upload YouTube Short
+
+# Manual YouTube Shorts publishing.
+# Run from the Actions tab ("Run workflow"): paste the video URL + title, tap Run.
+# Credentials come from repo secrets: YOUTUBE_CLIENT_ID / YOUTUBE_CLIENT_SECRET / YOUTUBE_REFRESH_TOKEN.
+
+on:
+  workflow_dispatch:
+    inputs:
+      video_url:
+        description: 'Direct URL of the mp4 (a 48h link is fine)'
+        required: true
+      title:
+        description: 'Video title'
+        required: true
+      description:
+        description: 'Video description'
+        required: false
+        default: ''
+      privacy:
+        description: 'Visibility'
+        required: false
+        default: 'public'
+        type: choice
+        options: [public, unlisted, private]
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Upload to YouTube
+        id: yt
+        env:
+          YT_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: |
+          python3 .github/scripts/yt_upload.py \
+            --video-url "${{ inputs.video_url }}" \
+            --title "${{ inputs.title }}" \
+            --description "${{ inputs.description }}" \
+            --privacy "${{ inputs.privacy }}" | tee /tmp/out.txt
+          vid=$(grep -oP '^video_id=\K.*' /tmp/out.txt | head -1)
+          echo "video_id=$vid" >> "$GITHUB_OUTPUT"
+
+      - name: Summary
+        run: |
+          echo "## YouTube upload" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Short: https://www.youtube.com/shorts/${{ steps.yt.outputs.video_id }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Watch: https://www.youtube.com/watch?v=${{ steps.yt.outputs.video_id }}" >> "$GITHUB_STEP_SUMMARY"
