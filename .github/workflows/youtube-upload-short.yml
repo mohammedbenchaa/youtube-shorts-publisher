@@ -88,7 +88,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           shopt -s nullglob
-          receipts=(transfer/youtube*.json transfer/thumbnail-upload.json)
+          receipts=(transfer/youtube*.json)
+          if [ -f transfer/thumbnail-upload.json ]; then
+            receipts+=(transfer/thumbnail-upload.json)
+          fi
           if [ "${#receipts[@]}" -gt 0 ]; then
             gh release upload "$TRANSFER_TAG" "${receipts[@]}" --repo "$GITHUB_REPOSITORY" --clobber
           fi
