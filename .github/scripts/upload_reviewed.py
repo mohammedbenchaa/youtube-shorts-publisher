@@ -144,13 +144,17 @@ def status(project,access):
     assert len(result['items'])==1
     item=result['items'][0];meta=json.loads((project/'youtube-upload-metadata.json').read_text())
     assert item['snippet']['channelId']==EXPECTED_CHANNEL
-    for key in ['title','description','tags']:
+    for key in ['title','description']:
         assert item['snippet'][key]==meta[key],'Applied metadata differs: '+key
-    assert item['snippet']['defaultLanguage']=='ar-DZ' and item['snippet']['defaultAudioLanguage']=='ar-DZ'
+    assert sorted(item['snippet'].get('tags',[]))==sorted(meta['tags']),'Applied tag values differ'
+    languages={key:item['snippet'].get(key) for key in ['defaultLanguage','defaultAudioLanguage']}
+    assert all(value in ['ar-DZ','ar'] for value in languages.values()),'Applied language is not Arabic'
     output={'checked_at':now(),'video_id':video['id'],'metadata_readback_passed':True,
         'expected_visibility':'unlisted','applied_visibility':item['status']['privacyStatus'],'api_video':item,
         'processing_succeeded':item.get('processingDetails',{}).get('processingStatus')=='succeeded',
-        'player_chapter_ui_verified':False}
+        'player_chapter_ui_verified':False,'requested_language':'ar-DZ','applied_languages':languages,
+        'language_normalization':'YouTube canonicalized requested ar-DZ to ar where recorded; narration remains Algerian Darija',
+        'tag_values_identical_order_ignored':True,'requested_tags':meta['tags']}
     save(project/'youtube-readback.json',output)
     print(json.dumps({'id':video['id'],'metadata_readback_passed':True,'status':item['status'],
         'processing':item.get('processingDetails'),'duration':item.get('contentDetails',{}).get('duration'),
