@@ -156,6 +156,17 @@ def status(project,access):
         'language_normalization':'YouTube canonicalized requested ar-DZ to ar where recorded; narration remains Algerian Darija',
         'tag_values_identical_order_ignored':True,'requested_tags':meta['tags']}
     save(project/'youtube-readback.json',output)
+    # The service worker also saves the served image as publication evidence.
+    # Source JPEG and API acceptance alone do not establish visible thumbnail content.
+    thumbs=item['snippet'].get('thumbnails',{})
+    served=next((thumbs[k]['url'] for k in ['maxres','standard','high'] if k in thumbs),None)
+    if served:
+        assert served.startswith('https://i.ytimg.com/vi/'+video['id']+'/')
+        with urllib.request.urlopen(served,timeout=60) as response:data=response.read()
+        (project/'youtube-served-thumbnail.jpg').write_bytes(data)
+        save(project/'youtube-served-thumbnail.json',{'url':served,'bytes':len(data),
+            'sha256':hashlib.sha256(data).hexdigest(),'downloaded_by':'GitHub upload service worker',
+            'downloaded_at':now(),'visual_review_complete':False})
     print(json.dumps({'id':video['id'],'metadata_readback_passed':True,'status':item['status'],
         'processing':item.get('processingDetails'),'duration':item.get('contentDetails',{}).get('duration'),
         'thumbnails':item['snippet'].get('thumbnails')},ensure_ascii=False,indent=2))

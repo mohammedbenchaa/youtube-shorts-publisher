@@ -92,6 +92,9 @@ jobs:
           if [ -f transfer/thumbnail-upload.json ]; then
             receipts+=(transfer/thumbnail-upload.json)
           fi
+          if [ -f transfer/youtube-served-thumbnail.jpg ]; then
+            receipts+=(transfer/youtube-served-thumbnail.jpg)
+          fi
           if [ "${#receipts[@]}" -gt 0 ]; then
             gh release upload "$TRANSFER_TAG" "${receipts[@]}" --repo "$GITHUB_REPOSITORY" --clobber
           fi
