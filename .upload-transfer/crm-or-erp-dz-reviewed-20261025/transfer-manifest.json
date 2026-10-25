@@ -1,0 +1,31 @@
+{
+  "project": "crm-or-erp-dz",
+  "expected_channel_id": "UCaLpAAcseB0OnnIBDOT3ujA",
+  "owner_authorized_upload": true,
+  "assets": {
+    "master.mp4": {
+      "bytes": 30439267,
+      "sha256": "c3a0dbd245176056b4e123b2992fb0513a1f12c1a85a8d6e79f2eeb1a55bc8bd"
+    },
+    "thumbnail-darija.jpg": {
+      "bytes": 326018,
+      "sha256": "bb596912b563c11ea75194d6dca581ae3e225f9557da298db8cf67b43170ac73"
+    },
+    "youtube-upload-metadata.json": {
+      "bytes": 4937,
+      "sha256": "611267738364899f2634fd4cd1b8add7621240a04a84a9a9ec3fa18e2da17aed"
+    },
+    "delivery.json": {
+      "bytes": 2125,
+      "sha256": "8f2deffcafa6e3b2cd7253f700d0901ac2876d8c4023f9f181abcd02c79fbd27"
+    },
+    "export-verification.json": {
+      "bytes": 2774,
+      "sha256": "af7b21246ecfe1c5c8758fc9d263fd2af4c4290ac04311dfdbd6394cf94e3745"
+    },
+    "thumbnail-darija-review.json": {
+      "bytes": 1321,
+      "sha256": "63132999717af873442f61c2042a5e2de365b8ed9a3d0015c55d42a5afca4a3b"
+    }
+  }
+}

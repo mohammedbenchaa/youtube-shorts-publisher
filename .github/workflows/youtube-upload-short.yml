@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       transfer_tag:
-        description: 'Authenticated draft release containing reviewed media'
+        description: 'Reviewed upload package under .upload-transfer; receipts use its draft release'
         required: true
         type: string
       mode:
@@ -34,13 +34,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Download authenticated draft-release assets
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Load and verify reviewed upload package
         run: |
           python -c 'import os,re; assert re.fullmatch(r"[A-Za-z0-9._-]+",os.environ["TRANSFER_TAG"])'
-          test "$(gh release view "$TRANSFER_TAG" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" = true
-          gh release download "$TRANSFER_TAG" --repo "$GITHUB_REPOSITORY" --dir transfer
+          mkdir -p transfer
+          cp ".upload-transfer/$TRANSFER_TAG/"* transfer/
           python - <<'PY'
           from pathlib import Path
           import hashlib,json
@@ -50,6 +48,22 @@ jobs:
               assert path.stat().st_size==record['bytes'] and hashlib.sha256(path.read_bytes()).hexdigest()==record['sha256'],name
           print('Reviewed transfer hashes verified')
           PY
+      - name: Restore private receipts for duplicate-upload protection
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test "$(gh release view "$TRANSFER_TAG" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" = true
+          gh release view "$TRANSFER_TAG" --repo "$GITHUB_REPOSITORY" --json assets > release-assets.json
+          python - <<'PY'
+          import json
+          names=[a['name'] for a in json.load(open('release-assets.json'))['assets']]
+          open('receipt-names.txt','w').write('\n'.join(n for n in names if n.startswith('youtube') or n=='thumbnail-upload.json'))
+          PY
+          while IFS= read -r name || [ -n "$name" ]; do
+            if [ -n "$name" ]; then
+              gh release download "$TRANSFER_TAG" --repo "$GITHUB_REPOSITORY" --pattern "$name" --dir transfer --clobber
+            fi
+          done < receipt-names.txt
       - name: Verify channel and run authorized operation
         env:
           YT_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}

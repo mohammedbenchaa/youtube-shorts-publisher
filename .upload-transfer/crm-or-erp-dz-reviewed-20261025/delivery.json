@@ -1,0 +1,52 @@
+{
+  "project": "crm-or-erp-dz",
+  "resolution": "1920x1080",
+  "fps": 30,
+  "duration": 316.43333333333334,
+  "narration_duration": 310.4109583333333,
+  "closing_start": 310.43333333333334,
+  "closing_duration": 6,
+  "voice_provider": "Google Gemini",
+  "voice_name": "Alnilam",
+  "voice_flac_sha256": "e20531ea7e3c4b73883a2e3f1b03a9b733c2f89e6b4728dd4d8499fa80171365",
+  "audio_preservation": "Whole raw narration at original speed; silent padding only after the narration",
+  "canonical_alpha_logo_sha256": "016f70d9b50cdf4c985d18922740766fc6b263b8b594d48fd2bdb36ee66c10bd",
+  "reviewed_source_sha256": {
+    "index.html": "fe903a044c32fb0fa6e45caf7d3314edd88b9fe028db67a749b670702b9b6344",
+    "anim.js": "d5a56d68e4f3e8fbc47780f77ca2dcd27bbfe33f9115d4cba73af5a154e53497",
+    "cues.js": "eafdb7aa9ec7ed10366b6ab36b76ad958b542aeb3fa3d1e79fe79d710b5a8d79",
+    "series.css": "422e381ca6fd1aeb3c4956d58c25910078221b4dd4114ab83b6742d795c40dc5",
+    "localization.css": "ec91284194cf1845f35a5827b56692bc3bf02c049a99dca895a2200a89fd6360",
+    "voice.flac": "e20531ea7e3c4b73883a2e3f1b03a9b733c2f89e6b4728dd4d8499fa80171365"
+  },
+  "encoding_settings": {
+    "master_preset": "veryfast",
+    "master_crf": 18,
+    "share_preset": "fast",
+    "share_crf": 21,
+    "share_maxrate_kbps": 465,
+    "mobile_preset": "veryfast",
+    "mobile_crf": 24
+  },
+  "full_decode_passed": true,
+  "youtube_uploaded": false,
+  "linkedin_published": false,
+  "encoded_at": "2026-10-24T01:07:39.024319+00:00",
+  "exports": {
+    "master.mp4": {
+      "path": "/workspace/somuraqami-site/out/crm-or-erp-dz/master.mp4",
+      "bytes": 30439267,
+      "sha256": "c3a0dbd245176056b4e123b2992fb0513a1f12c1a85a8d6e79f2eeb1a55bc8bd"
+    },
+    "share.mp4": {
+      "path": "/workspace/somuraqami-site/out/crm-or-erp-dz/share.mp4",
+      "bytes": 22807385,
+      "sha256": "7104907c00284739e564df563fa71880b57291cfa6d1da7f16e01de6190c0693"
+    },
+    "720p.mp4": {
+      "path": "/workspace/somuraqami-site/out/crm-or-erp-dz/720p.mp4",
+      "bytes": 9313374,
+      "sha256": "030c2bd582ac50df7c4d2d0000db9644f10dbb72878dd3ae15bd003a05c30443"
+    }
+  }
+}

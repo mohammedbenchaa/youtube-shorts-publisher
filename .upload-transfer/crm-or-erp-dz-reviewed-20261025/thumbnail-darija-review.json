@@ -1,0 +1,31 @@
+{
+  "requested_at": "2026-10-24",
+  "owner_instruction": "مليحة ولد صورة مصغرة وديرها بالهجة الجزائرية ونرفعوه لليوتوب",
+  "provider": "image_gen",
+  "generated_original": "/workspace/generated_images/exec-cdd03957-58cb-45e1-9aec-5a7fe93bfd2e.png",
+  "final_generated_source": "/workspace/generated_images/exec-cfabb638-3a5b-453d-bdc7-4c42fa2c606b.png",
+  "edit": "Replaced small contact bust icons with business symbols to satisfy no-people thumbnail rule; all other composition and wording retained.",
+  "text": [
+    "تسيير المؤسسة",
+    "CRM ولا ERP؟",
+    "منين تبدا؟",
+    "بالدارجة الجزائرية"
+  ],
+  "locale": "ar-DZ",
+  "visually_inspected": true,
+  "reviewer": "Codex agent",
+  "reviewed_at": "2026-10-24T01:36:01.997160+00:00",
+  "dimensions": [
+    1672,
+    941
+  ],
+  "bytes": 326018,
+  "sha256": "bb596912b563c11ea75194d6dca581ae3e225f9557da298db8cf67b43170ac73",
+  "png_sha256": "0fc5e4a3dadd22647dca534f8ec6aee0bd24b7532f6e60c7c0fe868733848e30",
+  "contains_people": false,
+  "bright_background": true,
+  "mobile_legibility": true,
+  "text_safe_margins_passed": true,
+  "owner_individual_thumbnail_approval": false,
+  "technical_encoding": "FFmpeg JPEG encoding only; no visual retouching outside image_gen."
+}

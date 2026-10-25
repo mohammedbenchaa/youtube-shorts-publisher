@@ -1,0 +1,102 @@
+{
+  "master_sha256": "c3a0dbd245176056b4e123b2992fb0513a1f12c1a85a8d6e79f2eeb1a55bc8bd",
+  "share_sha256": "7104907c00284739e564df563fa71880b57291cfa6d1da7f16e01de6190c0693",
+  "scope": "All three exports",
+  "full_decode_all_exports": true,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "duration": 316.43333333333334,
+  "original_voice_duration": 310.4109583333333,
+  "encoded_audio_duration": 316.45866666666666,
+  "complete_source_pcm_compared": true,
+  "original_generated_pcm_sha256": "193455e1bc41d82cb85cad8be8f2538609b8e2aca594edfc9b9f01147970b32a",
+  "lossless_source_matches_generated_pcm": true,
+  "source_encoded_correlation": 0.9995700528629503,
+  "relative_rmse": 0.029592542795932177,
+  "rms_gain_ratio": 0.9955385893291268,
+  "paragraph_correlations": [
+    {
+      "scene": "s1",
+      "correlation": 0.9998277539932845
+    },
+    {
+      "scene": "s2",
+      "correlation": 0.9998397547853639
+    },
+    {
+      "scene": "s3",
+      "correlation": 0.9998744863685702
+    },
+    {
+      "scene": "s4",
+      "correlation": 0.9998323688368248
+    },
+    {
+      "scene": "s5",
+      "correlation": 0.999727300636321
+    },
+    {
+      "scene": "s6",
+      "correlation": 0.9996033340060304
+    },
+    {
+      "scene": "s7",
+      "correlation": 0.9997539369510542
+    },
+    {
+      "scene": "s8",
+      "correlation": 0.9994634635053361
+    },
+    {
+      "scene": "s9",
+      "correlation": 0.9997443928403349
+    },
+    {
+      "scene": "s10",
+      "correlation": 0.9997149477048423
+    },
+    {
+      "scene": "s11",
+      "correlation": 0.9997391563995843
+    },
+    {
+      "scene": "s12",
+      "correlation": 0.9995095454257401
+    },
+    {
+      "scene": "s13",
+      "correlation": 0.9995583135075767
+    },
+    {
+      "scene": "s14",
+      "correlation": 0.99955584982504
+    },
+    {
+      "scene": "s15",
+      "correlation": 0.9993409772735713
+    },
+    {
+      "scene": "s16",
+      "correlation": 0.9989616302570425
+    }
+  ],
+  "closing_tail_rms": 0.0,
+  "aac_packet_sha256": {
+    "master.mp4": "4da17115395fd7a437134d8b8132b44fffb45b967d9457150e6667cab119457d",
+    "share.mp4": "4da17115395fd7a437134d8b8132b44fffb45b967d9457150e6667cab119457d",
+    "720p.mp4": "4da17115395fd7a437134d8b8132b44fffb45b967d9457150e6667cab119457d"
+  },
+  "audio_integrity_passed": true,
+  "encoded_scene_stills_extracted": true,
+  "encoded_visual_inspection_complete": true,
+  "publication_status": "Not uploaded to YouTube/LinkedIn",
+  "encoded_all_16_scenes_inspected": true,
+  "encoded_all_15_transitions_inspected": true,
+  "canonical_six_second_closing_inspected": true,
+  "full_resolution_scene_14_and_final_frame_inspected": true,
+  "visually_reviewed_by": "Codex agent",
+  "visually_reviewed_at": "2026-10-24T01:08:09.219318+00:00"
+}
